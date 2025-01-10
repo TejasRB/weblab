@@ -1,0 +1,43 @@
+<html>
+<head>
+    <title>Insert Data</title>
+</head>
+<body>
+    <h2>Insert New Record</h2>
+    <form action="insert.php" method="post">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" name="age" required><br><br>
+        
+        <input type="submit" value="Insert">
+    </form>
+</body>
+</html>
+
+
+<?php
+$name = $_POST['name'];
+$age = $_POST['age'];
+$servername = "localhost";
+$username = "root"; 
+$password = "";
+$dbname = "test";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "INSERT INTO info (name, age) VALUES ('$name', $age)";
+
+if ($conn->query($sql) === TRUE) {
+    echo "New record created successfully";
+} else {
+    echo "Error: " . $sql . "<br>" . $conn->error;
+}
+$conn->close();
+?>
+

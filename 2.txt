@@ -1,0 +1,34 @@
+<form action="http://localhost/cgi-bin/2a.pl">
+    <h2> Enter Name</h2>
+    <input type="name" name="name">
+    <input type="submit" value="submit">
+</form>
+
+#!C:\xampp\perl\bin\perl.exe
+
+use CGI ':standard';
+
+my $cmd = param('name');
+my @greet = ('Hello','Hi','Nice to meet');
+my $index = int rand scalar @greet;
+
+print "Content-Type:text/html;\n\n";
+print "<h2> $cmd , $greet[$index]</h2>";
+
+**********************************************
+
+<form action="http://localhost/cgi-bin/2b.pl">
+    <input type="submit" value="show">
+</form>
+
+#!C:/xampp/perl/bin/perl.exe
+use CGI':standard';
+print "Content-Type:text/html;\n\n";
+
+open(FILE,'<count.txt');
+$count = <FILE>;
+close(FILE);
+$count++;
+open(FILE,'>count.txt');
+print FILE"$count";
+print "page has visited $count times";

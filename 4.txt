@@ -1,0 +1,8 @@
+<form action="http://localhost/cgi-bin/4.pl">
+    <input type="submit" value="show time">
+</form>
+
+#!C:\xampp\perl\bin\perl.exe
+print "Content-Type:text/html;\n\n";
+($s , $m , $h) = localtime(time);
+print "Time is $h:$m:$s";

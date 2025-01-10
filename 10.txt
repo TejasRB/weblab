@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>Greetings</title>
+</head>
+<body>
+<form action="greet" method="post">
+<h2>Enter your name:</h2>
+                <input type=text name=name />
+                <input type=submit value=submit />
+</form>
+</body>
+</html>
+
+import java.io.PrintWriter
+import java.util.Random
+private static final String[] GREETINGS = {
+	        "Hello", "Welcome", "Hi there", "Greetings", "Hey", "Good to see you"
+	    };
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
+		String username = request.getParameter("name");
+        Random random = new Random();
+        String greeting = GREETINGS[random.nextInt(GREETINGS.length)];
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+        out.println("<h2>" + greeting + ", " + username + "!</h2>");
+        out.println("</body></html>");
+	}
+
+*************************************************
+
+<html>
+<head>
+<title>BG Colour Changer</title>
+</head>
+<body>
+<h2>Select a Background Color</h2>
+    <form action="color" method="POST">
+        <label for="color">Choose a color:</label>
+        <input type="color" id="color" name="color" required>
+        <button type="submit">Apply Color</button>
+    </form>
+</body>
+</html>
+
+import java.io.PrintWriter
+protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+		String color = request.getParameter("color");
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head><title>Background Color Changer</title></head>");
+        out.println("<body style='background-color: " + color + ";'>");
+        out.println("<h2>The background color has been set to: " + color + "</h2>");
+        out.println("<a href='bgcolour.html'>Choose another color</a>");
+        out.println("</body></html>");
+	}
+

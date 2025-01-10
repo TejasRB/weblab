@@ -1,0 +1,59 @@
+<html>
+<head>
+    <title>Database Table Viewer</title>
+</head>
+<body>
+    <h2>Enter Database and Table Name</h2>
+    <form action="query.php" method="post">
+        <label for="dbname">Database Name:</label>
+        <input type="text" id="dbname" name="dbname" required><br><br>
+        
+        <label for="query">Query:</label>
+        <input type="text" id="query" name="query" required><br><br>
+
+        <input type="submit" value="Display Table">
+    </form>
+</body>
+</html>
+
+//select * from info where age>20
+<?php
+$dbname = $_POST['dbname'];
+$query=$_POST['query'];
+$servername = "localhost";
+$username = "root"; 
+$password = "";
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$result = $conn->query($query);
+
+if ($result->num_rows > 0) {
+    echo "<h2>Contents of Table:</h2>";
+    echo "<table border='1'>";
+    
+    $columns = $result->fetch_fields();
+    echo "<tr>";
+    foreach ($columns as $column) {
+        echo "<th>" . $column->name . "</th>";
+    }
+    echo "</tr>";
+    
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>";
+        foreach ($row as $value) {
+            echo "<td>" . htmlspecialchars($value) . "</td>";
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+} else {
+    echo "No data found in the table.";
+}
+$conn->close();
+?>
+
